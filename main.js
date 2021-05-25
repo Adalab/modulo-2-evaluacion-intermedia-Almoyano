@@ -10,24 +10,37 @@ function getRandomNumber(max) {
   return Math.ceil(Math.random() * max);
 }
 
+const randomNumber = getRandomNumber(100);
+
 function handlerShowNumber() {
   const inputUserValue = parseInt(inputUser.value);
   console.log(inputUserValue);
   console.log(randomNumber);
   let userNumber = inputUserValue;
   //let randomNumber = getRandomNumber;
-  if (userNumber > randomNumber) {
-    inputClue.innerHTML = " Demasiado alto ";
+  if (userNumber < 1 || userNumber > 100) {
+    inputClue.innerHTML = "El número debe estar entre 1 y 100";
   } else if (userNumber < randomNumber) {
     inputClue.innerHTML = " Demasiado bajo ";
-  } else if (userNumber === randomNumber) {
+  } else if (userNumber > randomNumber) {
+    inputClue.innerHTML = " Demasiado alto ";
+  } else {
     inputClue.innerHTML = " Has ganado campeona ";
-  } else if (userNumber < 1 || userNumber > 100) {
-    inputClue.innerHTML = "El número debe estar entre 1 y 100";
   }
 }
 
-button.addEventListener("click", handlerShowNumber);
+let cont = 0;
+function counter() {
+  cont++;
+  inputAttempt.innerHTML = `El numero de intentos ${cont}`;
+}
 
-const randomNumber = getRandomNumber(100);
+function handleClick(event) {
+  event.preventDefault();
+  handlerShowNumber();
+  counter();
+}
+
+button.addEventListener("click", handleClick);
+
 console.log("Mi número aleatorio es ", randomNumber);
